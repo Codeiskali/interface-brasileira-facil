@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Stethoscope, Syringe, ShoppingBag, Search, User, Book } from 'lucide-react';
+import { User, ShoppingBag, Search, Book } from 'lucide-react';
 import FeatureCard from '@/components/FeatureCard';
 import { Link } from 'react-router-dom';
 
@@ -25,22 +25,6 @@ const Index = () => {
             />
           </Link>
           
-          <Link to="/anatomia">
-            <FeatureCard 
-              icon={<Stethoscope size={48} strokeWidth={1.5} />}
-              title="Anatomia Dental"
-              description="Acesse informações importantes sobre a anatomia dos dentes"
-            />
-          </Link>
-          
-          <Link to="/anestesia">
-            <FeatureCard 
-              icon={<Syringe size={48} strokeWidth={1.5} />}
-              title="Manual de Anestesia"
-              description="Navegue pelos protocolos e diretrizes de dosagem"
-            />
-          </Link>
-          
           <Link to="/calculadora">
             <FeatureCard 
               icon={<ShoppingBag size={48} strokeWidth={1.5} />}
@@ -49,14 +33,6 @@ const Index = () => {
             />
           </Link>
           
-          <Link to="/resumo">
-            <FeatureCard 
-              icon={<Stethoscope size={48} strokeWidth={1.5} />}
-              title="Resumo"
-              description="Resuma o procedimento e obtenha sugestões pós-operatórias"
-            />
-          </Link>
-
           <Link to="/manuais">
             <FeatureCard 
               icon={<Book size={48} strokeWidth={1.5} />}
