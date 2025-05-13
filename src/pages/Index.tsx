@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Tooth, Syringe, ShoppingBag, Search } from 'lucide-react';
+import { Stethoscope, Syringe, ShoppingBag, Search } from 'lucide-react';
 import FeatureCard from '@/components/FeatureCard';
 
 const Index = () => {
@@ -17,7 +17,7 @@ const Index = () => {
         {/* Cards de funcionalidade */}
         <div className="flex-1">
           <FeatureCard 
-            icon={<Tooth size={48} strokeWidth={1.5} />}
+            icon={<Stethoscope size={48} strokeWidth={1.5} />}
             title="Anatomia Dental"
             description="Acesse informações importantes sobre a anatomia dos dentes"
           />
@@ -35,7 +35,7 @@ const Index = () => {
           />
           
           <FeatureCard 
-            icon={<Tooth size={48} strokeWidth={1.5} />}
+            icon={<Stethoscope size={48} strokeWidth={1.5} />}
             title="Resumo"
             description="Resuma o procedimento e obtenha sugestões pós-operatórias"
           />
