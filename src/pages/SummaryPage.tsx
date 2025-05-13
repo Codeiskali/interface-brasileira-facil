@@ -26,7 +26,7 @@ const SummaryPage = () => {
   // Em uma aplicação real, estas viriam de um estado global ou API
   const [patientInfo] = useState({
     hasRisk: Math.random() > 0.7, // Simulando chance de risco para demonstração
-    riskReason: Math.random() > 0.5 ? 'allergies' : 'asaLevel',
+    riskReason: Math.random() > 0.5 ? 'allergies' : 'asaLevel' as 'allergies' | 'asaLevel',
     asaLevel: 'ASA III',
     allergies: {
       dipyrone: true,
