@@ -2,6 +2,7 @@
 import React from 'react';
 import { Stethoscope, Syringe, ShoppingBag, Search } from 'lucide-react';
 import FeatureCard from '@/components/FeatureCard';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
@@ -16,29 +17,37 @@ const Index = () => {
 
         {/* Cards de funcionalidade */}
         <div className="flex-1">
-          <FeatureCard 
-            icon={<Stethoscope size={48} strokeWidth={1.5} />}
-            title="Anatomia Dental"
-            description="Acesse informações importantes sobre a anatomia dos dentes"
-          />
+          <Link to="/anatomia">
+            <FeatureCard 
+              icon={<Stethoscope size={48} strokeWidth={1.5} />}
+              title="Anatomia Dental"
+              description="Acesse informações importantes sobre a anatomia dos dentes"
+            />
+          </Link>
           
-          <FeatureCard 
-            icon={<Syringe size={48} strokeWidth={1.5} />}
-            title="Manual de Anestesia"
-            description="Navegue pelos protocolos e diretrizes de dosagem"
-          />
+          <Link to="/anestesia">
+            <FeatureCard 
+              icon={<Syringe size={48} strokeWidth={1.5} />}
+              title="Manual de Anestesia"
+              description="Navegue pelos protocolos e diretrizes de dosagem"
+            />
+          </Link>
           
-          <FeatureCard 
-            icon={<ShoppingBag size={48} strokeWidth={1.5} />}
-            title="Calculadora de Dose"
-            description="Calcule o número máximo de cartuchos de anestésico"
-          />
+          <Link to="/calculadora">
+            <FeatureCard 
+              icon={<ShoppingBag size={48} strokeWidth={1.5} />}
+              title="Calculadora de Dose"
+              description="Calcule o número máximo de cartuchos de anestésico"
+            />
+          </Link>
           
-          <FeatureCard 
-            icon={<Stethoscope size={48} strokeWidth={1.5} />}
-            title="Resumo"
-            description="Resuma o procedimento e obtenha sugestões pós-operatórias"
-          />
+          <Link to="/resumo">
+            <FeatureCard 
+              icon={<Stethoscope size={48} strokeWidth={1.5} />}
+              title="Resumo"
+              description="Resuma o procedimento e obtenha sugestões pós-operatórias"
+            />
+          </Link>
         </div>
 
         {/* Botão de Pesquisa */}
