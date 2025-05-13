@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Stethoscope, Syringe, ShoppingBag, Search } from 'lucide-react';
+import { Stethoscope, Syringe, ShoppingBag, Search, User } from 'lucide-react';
 import FeatureCard from '@/components/FeatureCard';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +17,14 @@ const Index = () => {
 
         {/* Cards de funcionalidade */}
         <div className="flex-1">
+          <Link to="/cadastro-paciente">
+            <FeatureCard 
+              icon={<User size={48} strokeWidth={1.5} />}
+              title="Cadastro de Paciente"
+              description="Gerenciar informações e histórico do paciente"
+            />
+          </Link>
+          
           <Link to="/anatomia">
             <FeatureCard 
               icon={<Stethoscope size={48} strokeWidth={1.5} />}
