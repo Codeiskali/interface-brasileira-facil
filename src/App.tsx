@@ -10,6 +10,7 @@ import AnesthesiaPage from "./pages/AnesthesiaPage";
 import CalculatorPage from "./pages/CalculatorPage";
 import SummaryPage from "./pages/SummaryPage";
 import PatientRegisterPage from "./pages/PatientRegisterPage";
+import ManualsPage from "./pages/ManualsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/calculadora" element={<CalculatorPage />} />
           <Route path="/resumo" element={<SummaryPage />} />
           <Route path="/cadastro-paciente" element={<PatientRegisterPage />} />
+          <Route path="/manuais" element={<ManualsPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

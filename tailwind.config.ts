@@ -63,12 +63,14 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Cores personalizadas para o aplicativo
+				// Nova paleta de cores mais atraente
 				'odonto': {
-					'bg': '#CEF0D4',          // Fundo verde menta claro
-					'dark': '#0F4C5C',        // Verde-azulado escuro para textos e ícones
-					'medium': '#1B7F79',      // Verde-azulado médio para botões
-					'light': '#E5F9E0',       // Verde muito claro para destaques
+					'bg': '#E5F9E0',         // Verde claro suave para fundo
+					'dark': '#0F4C5C',       // Azul-verde escuro para textos
+					'medium': '#3DA5D9',     // Azul vibrante para botões e destaques
+					'light': '#F2FCE2',      // Verde muito claro para destaques sutis
+					'accent': '#EF767A',     // Coral para alertas e destaques importantes
+					'muted': '#7EA8BE',      // Azul acinzentado para elementos secundários
 				}
 			},
 			borderRadius: {

@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/hooks/use-toast';
+import RiskAlert from '@/components/RiskAlert';
 
 const SummaryPage = () => {
   const [notes, setNotes] = useState('');
@@ -20,8 +22,39 @@ const SummaryPage = () => {
   
   const [showSummary, setShowSummary] = useState(false);
 
+  // Simular informações do paciente
+  // Em uma aplicação real, estas viriam de um estado global ou API
+  const [patientInfo] = useState({
+    hasRisk: Math.random() > 0.7, // Simulando chance de risco para demonstração
+    riskReason: Math.random() > 0.5 ? 'allergies' : 'asaLevel',
+    asaLevel: 'ASA III',
+    allergies: {
+      dipyrone: true,
+      paracetamol: true,
+      ibuprofen: false,
+      antibiotics: 'Amoxicilina, Azitromicina'
+    }
+  });
+
   const generateSummary = () => {
-    setShowSummary(true);
+    // Se não houver risco, mostrar o resumo normalmente
+    if (!patientInfo.hasRisk) {
+      setShowSummary(true);
+    } else {
+      // Se houver risco, mostrar uma mensagem alternativa
+      toast({
+        title: "Risco Identificado",
+        description: "Este paciente apresenta contraindicações importantes. Verifique o alerta na tela.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleSaveAndRefer = () => {
+    toast({
+      title: "Paciente encaminhado",
+      description: "O caso foi salvo e marcado para encaminhamento especializado.",
+    });
   };
 
   return (
@@ -38,6 +71,15 @@ const SummaryPage = () => {
             <h1 className="text-2xl font-bold text-odonto-dark ml-2">Resumo do Procedimento</h1>
           </div>
         </header>
+
+        {/* Exibir alerta de risco se necessário */}
+        {patientInfo.hasRisk && (
+          <RiskAlert 
+            reason={patientInfo.riskReason} 
+            asaLevel={patientInfo.asaLevel} 
+            onSaveAndRefer={handleSaveAndRefer} 
+          />
+        )}
 
         {/* Conteúdo da página */}
         <div className="flex-1">
@@ -121,6 +163,7 @@ const SummaryPage = () => {
                   <Button 
                     className="w-full bg-odonto-medium hover:bg-odonto-dark" 
                     onClick={generateSummary}
+                    disabled={patientInfo.hasRisk}
                   >
                     Gerar Resumo
                   </Button>
@@ -158,7 +201,7 @@ const SummaryPage = () => {
               <CardFooter>
                 <Button 
                   variant="outline"
-                  className="w-full" 
+                  className="w-full border-odonto-medium text-odonto-dark" 
                   onClick={() => setShowSummary(false)}
                 >
                   Editar
