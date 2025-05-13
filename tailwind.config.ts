@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Cores personalizadas para o aplicativo
+				'odonto': {
+					'bg': '#CEF0D4',          // Fundo verde menta claro
+					'dark': '#0F4C5C',        // Verde-azulado escuro para textos e ícones
+					'medium': '#1B7F79',      // Verde-azulado médio para botões
+					'light': '#E5F9E0',       // Verde muito claro para destaques
 				}
 			},
 			borderRadius: {
