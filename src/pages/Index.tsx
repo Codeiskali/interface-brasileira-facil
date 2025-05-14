@@ -1,11 +1,12 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, Book, UserPlus, Note, Users } from 'lucide-react';
+import { Calculator, Book, UserPlus, FileText, Users } from 'lucide-react';
 
 interface FeatureCardProps {
   title: string;
   description: string;
-  icon: "calculator" | "book" | "user-plus" | "note" | "users";
+  icon: "calculator" | "book" | "user-plus" | "file-text" | "users";
   to: string;
   color: "teal" | "purple" | "orange" | "green" | "blue";
 }
@@ -16,7 +17,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon, to,
       case "calculator": return <Calculator className="h-6 w-6 mr-2" />;
       case "book": return <Book className="h-6 w-6 mr-2" />;
       case "user-plus": return <UserPlus className="h-6 w-6 mr-2" />;
-      case "note": return <Note className="h-6 w-6 mr-2" />;
+      case "file-text": return <FileText className="h-6 w-6 mr-2" />;
       case "users": return <Users className="h-6 w-6 mr-2" />;
       default: return null;
     }
@@ -78,11 +79,11 @@ const Index = () => {
             color="orange" 
           />
           
-          {/* Add card for Patient History */}
+          {/* Use FileText icon instead of Note for Patient History */}
           <FeatureCard 
             title="Histórico de Pacientes" 
             description="Acesse o histórico completo de pacientes cadastrados e edite suas informações."
-            icon="note" 
+            icon="file-text" 
             to="/historico-pacientes"
             color="teal" 
           />
