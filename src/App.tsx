@@ -11,6 +11,8 @@ import CalculatorPage from "./pages/CalculatorPage";
 import SummaryPage from "./pages/SummaryPage";
 import PatientRegisterPage from "./pages/PatientRegisterPage";
 import ManualsPage from "./pages/ManualsPage";
+import SpecialPatientsPage from "./pages/SpecialPatientsPage";
+import PatientTypeDetailPage from "./pages/PatientTypeDetailPage";
 import NotFound from "./pages/NotFound";
 import { useState } from "react";
 
@@ -29,6 +31,8 @@ function App() {
             <Route path="/calculadora" element={<CalculatorPage />} />
             <Route path="/cadastro-paciente" element={<PatientRegisterPage />} />
             <Route path="/manuais" element={<ManualsPage />} />
+            <Route path="/pacientes-especiais" element={<SpecialPatientsPage />} />
+            <Route path="/pacientes-especiais/:typeId" element={<PatientTypeDetailPage />} />
             
             {/* Redirecionar rotas antigas para a página de manuais */}
             <Route path="/anatomia" element={<Navigate to="/manuais?tab=anatomy" replace />} />

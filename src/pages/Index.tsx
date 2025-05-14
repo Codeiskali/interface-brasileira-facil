@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { User, ShoppingBag, Search, Book } from 'lucide-react';
+import { User, ShoppingBag, Search, Book, Shield } from 'lucide-react';
 import FeatureCard from '@/components/FeatureCard';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +38,14 @@ const Index = () => {
               icon={<Book size={48} strokeWidth={1.5} />}
               title="Manuais e Guias"
               description="Acesse conteúdo educacional e protocolos clínicos"
+            />
+          </Link>
+
+          <Link to="/pacientes-especiais">
+            <FeatureCard 
+              icon={<Shield size={48} strokeWidth={1.5} />}
+              title="Pacientes Especiais"
+              description="Condutas especiais por tipo de paciente"
             />
           </Link>
         </div>
