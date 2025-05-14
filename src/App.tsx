@@ -10,6 +10,8 @@ import AnesthesiaPage from "./pages/AnesthesiaPage";
 import CalculatorPage from "./pages/CalculatorPage";
 import SummaryPage from "./pages/SummaryPage";
 import PatientRegisterPage from "./pages/PatientRegisterPage";
+import PatientHistoryPage from "./pages/PatientHistoryPage";
+import PatientEditPage from "./pages/PatientEditPage";
 import ManualsPage from "./pages/ManualsPage";
 import SpecialPatientsPage from "./pages/SpecialPatientsPage";
 import PatientTypeDetailPage from "./pages/PatientTypeDetailPage";
@@ -30,6 +32,8 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/calculadora" element={<CalculatorPage />} />
             <Route path="/cadastro-paciente" element={<PatientRegisterPage />} />
+            <Route path="/historico-pacientes" element={<PatientHistoryPage />} />
+            <Route path="/editar-paciente/:patientId" element={<PatientEditPage />} />
             <Route path="/manuais" element={<ManualsPage />} />
             <Route path="/pacientes-especiais" element={<SpecialPatientsPage />} />
             <Route path="/pacientes-especiais/:typeId" element={<PatientTypeDetailPage />} />

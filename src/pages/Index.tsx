@@ -1,63 +1,105 @@
-
 import React from 'react';
-import { User, ShoppingBag, Search, Book, Shield } from 'lucide-react';
-import FeatureCard from '@/components/FeatureCard';
 import { Link } from 'react-router-dom';
+import { Calculator, Book, UserPlus, Note, Users } from 'lucide-react';
+
+interface FeatureCardProps {
+  title: string;
+  description: string;
+  icon: "calculator" | "book" | "user-plus" | "note" | "users";
+  to: string;
+  color: "teal" | "purple" | "orange" | "green" | "blue";
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, icon, to, color }) => {
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case "calculator": return <Calculator className="h-6 w-6 mr-2" />;
+      case "book": return <Book className="h-6 w-6 mr-2" />;
+      case "user-plus": return <UserPlus className="h-6 w-6 mr-2" />;
+      case "note": return <Note className="h-6 w-6 mr-2" />;
+      case "users": return <Users className="h-6 w-6 mr-2" />;
+      default: return null;
+    }
+  };
+
+  const getColorClass = (colorName: string) => {
+    switch (colorName) {
+      case "teal": return "bg-teal-50 text-teal-900 hover:bg-teal-100";
+      case "purple": return "bg-purple-50 text-purple-900 hover:bg-purple-100";
+      case "orange": return "bg-orange-50 text-orange-900 hover:bg-orange-100";
+      case "green": return "bg-green-50 text-green-900 hover:bg-green-100";
+      case "blue": return "bg-blue-50 text-blue-900 hover:bg-blue-100";
+      default: return "bg-gray-50 text-gray-900 hover:bg-gray-100";
+    }
+  };
+
+  return (
+    <Link to={to} className={`block p-6 rounded-lg shadow-md transition duration-300 ease-in-out ${getColorClass(color)}`}>
+      <div className="flex items-center mb-4">
+        {getIcon(icon)}
+        <h3 className="text-lg font-semibold">{title}</h3>
+      </div>
+      <p className="text-gray-700">{description}</p>
+    </Link>
+  );
+};
 
 const Index = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className="min-h-screen bg-odonto-bg flex flex-col">
-      <div className="w-full max-w-md mx-auto px-5 py-8 flex-1 flex flex-col">
-        {/* Cabeçalho */}
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold leading-tight text-odonto-dark text-center">
-            ANESTETICALC<br />ODONTO
-          </h1>
-        </header>
-
-        {/* Cards de funcionalidade */}
-        <div className="flex-1">
-          <Link to="/cadastro-paciente">
-            <FeatureCard 
-              icon={<User size={48} strokeWidth={1.5} />}
-              title="Cadastro de Paciente"
-              description="Gerenciar informações e histórico do paciente"
-            />
-          </Link>
+    <div className="min-h-screen bg-white">
+      <header className="bg-[#2c7d7b] text-white p-6">
+        <h1 className="text-3xl font-bold text-center">ANESTETICALC ODONTO</h1>
+        <p className="text-center mt-2">A ferramenta definitiva para cálculos e protocolos em anestesiologia odontológica.</p>
+      </header>
+      
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <FeatureCard 
+            title="Calculadora de Anestésicos" 
+            description="Calcule doses de anestésicos com precisão, considerando o peso e as condições do paciente."
+            icon="calculator" 
+            to="/calculadora"
+            color="teal" 
+          />
+          <FeatureCard 
+            title="Manuais e Protocolos" 
+            description="Acesse guias rápidos e protocolos atualizados para diferentes procedimentos e pacientes."
+            icon="book" 
+            to="/manuais"
+            color="purple" 
+          />
+          <FeatureCard 
+            title="Cadastro de Paciente" 
+            description="Registre novos pacientes e mantenha um histórico detalhado de suas informações."
+            icon="user-plus" 
+            to="/cadastro-paciente"
+            color="orange" 
+          />
           
-          <Link to="/calculadora">
-            <FeatureCard 
-              icon={<ShoppingBag size={48} strokeWidth={1.5} />}
-              title="Calculadora de Dose"
-              description="Calcule o número máximo de cartuchos de anestésico"
-            />
-          </Link>
+          {/* Add card for Patient History */}
+          <FeatureCard 
+            title="Histórico de Pacientes" 
+            description="Acesse o histórico completo de pacientes cadastrados e edite suas informações."
+            icon="note" 
+            to="/historico-pacientes"
+            color="teal" 
+          />
           
-          <Link to="/manuais">
-            <FeatureCard 
-              icon={<Book size={48} strokeWidth={1.5} />}
-              title="Manuais e Guias"
-              description="Acesse conteúdo educacional e protocolos clínicos"
-            />
-          </Link>
-
-          <Link to="/pacientes-especiais">
-            <FeatureCard 
-              icon={<Shield size={48} strokeWidth={1.5} />}
-              title="Pacientes Especiais"
-              description="Condutas especiais por tipo de paciente"
-            />
-          </Link>
+          <FeatureCard 
+            title="Pacientes Especiais" 
+            description="Gerencie informações e protocolos para pacientes com condições especiais."
+            icon="users"
+            to="/pacientes-especiais"
+            color="green"
+          />
         </div>
-
-        {/* Botão de Pesquisa */}
-        <div className="mt-4 mb-8">
-          <button className="w-full bg-odonto-medium hover:bg-odonto-dark text-white py-4 px-6 rounded-xl flex items-center justify-center transition-colors">
-            <Search size={24} className="mr-2" />
-            <span className="text-xl">Pesquisar</span>
-          </button>
-        </div>
-      </div>
+      </main>
+      
+      <footer className="bg-gray-100 text-gray-600 text-center p-4">
+        <p>&copy; {currentYear} ANESTETICALC ODONTO. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 };

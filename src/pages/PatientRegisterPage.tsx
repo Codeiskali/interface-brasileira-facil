@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, Save } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -14,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const PatientRegisterPage = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [patient, setPatient] = useState({
     fullName: '',
     age: '',
@@ -28,8 +28,9 @@ const PatientRegisterPage = () => {
       ibuprofen: false,
       antibiotics: ''
     },
-    systemicConditions: '',
-    procedure: 'Extração dentária'
+    systemicConditions: 'nenhuma',
+    procedure: 'Extração dentária',
+    notes: ''
   });
 
   const handleChange = (field, value) => {
@@ -50,12 +51,31 @@ const PatientRegisterPage = () => {
   };
 
   const handleSavePatient = () => {
-    // Here we would typically save the patient data
-    console.log("Patient data:", patient);
+    // Generate a unique ID for this patient
+    const patientRecord = {
+      ...patient,
+      id: Date.now().toString(),
+      lastUpdated: new Date().toLocaleString('pt-BR')
+    };
+
+    // Get existing patient records from localStorage or initialize empty array
+    const storedPatients = localStorage.getItem('patientRecords');
+    const patientRecords = storedPatients ? JSON.parse(storedPatients) : [];
+    
+    // Add new patient to records
+    patientRecords.push(patientRecord);
+    
+    // Save back to localStorage
+    localStorage.setItem('patientRecords', JSON.stringify(patientRecords));
+    
+    // Show success message
     toast({
       title: "Paciente cadastrado",
       description: "Os dados do paciente foram salvos com sucesso.",
     });
+    
+    // Navigate to patient history page
+    navigate('/historico-pacientes');
   };
 
   const handleSuggestProcedure = () => {
@@ -199,6 +219,30 @@ const PatientRegisterPage = () => {
               </div>
             )}
 
+            {/* Sistema/Campo de comorbidades */}
+            <div className="space-y-2">
+              <Label htmlFor="systemicConditions">Condições Sistêmicas / Comorbidades</Label>
+              <Select 
+                value={patient.systemicConditions} 
+                onValueChange={(value) => handleChange('systemicConditions', value)}
+              >
+                <SelectTrigger id="systemicConditions">
+                  <SelectValue placeholder="Selecione a condição" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="cardiopata">Cardiopata</SelectItem>
+                  <SelectItem value="diabetico">Diabético</SelectItem>
+                  <SelectItem value="hipertenso">Hipertenso</SelectItem>
+                  <SelectItem value="imunocomprometido">Imunocomprometido</SelectItem>
+                  <SelectItem value="gestante">Gestante</SelectItem>
+                  <SelectItem value="pediatrico">Pediátrico</SelectItem>
+                  <SelectItem value="idoso">Idoso</SelectItem>
+                  <SelectItem value="anticoagulante">Em uso de anticoagulantes</SelectItem>
+                  <SelectItem value="nenhuma">Nenhuma condição especial</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* História de Alergias */}
             <div className="space-y-4">
               <h3 className="font-medium text-lg">Historico de Alengias</h3>
@@ -312,6 +356,17 @@ const PatientRegisterPage = () => {
                   <SelectItem value="Cirurgia odontológica">Cirurgia odontológica</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="patientNotes">Anotações sobre o paciente</Label>
+              <Textarea 
+                id="patientNotes"
+                placeholder="Adicione aqui observações importantes sobre o paciente..."
+                value={patient.notes}
+                onChange={(e) => handleChange('notes', e.target.value)}
+                className="min-h-[120px]"
+              />
             </div>
 
             <Button 
