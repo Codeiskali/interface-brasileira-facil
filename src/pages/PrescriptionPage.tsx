@@ -16,6 +16,7 @@ interface MedicationOption {
   dosage: string;
   instructions: string;
   quantity: string;
+  category: string;
 }
 
 const PrescriptionPage = () => {
@@ -25,35 +26,232 @@ const PrescriptionPage = () => {
   const [showPrescription, setShowPrescription] = useState(false);
 
   const medications: MedicationOption[] = [
+    // CONTROLE DA DOR - Analgésicos e Antitérmicos
+    {
+      id: 'paracetamol',
+      name: 'Paracetamol 500mg',
+      dosage: '500mg',
+      instructions: 'Tomar 01 (um) comprimido de 6 em 6 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+    {
+      id: 'dipirona',
+      name: 'Dipirona Monohidratada 500mg',
+      dosage: '500mg',
+      instructions: 'Tomar 01 (um) comprimido de 6 em 6 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+    {
+      id: 'nimesulida',
+      name: 'Nimesulida 100mg',
+      dosage: '100mg',
+      instructions: 'Tomar 01 (um) comprimido de 12 em 12 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+    {
+      id: 'aas',
+      name: 'Ácido Acetilsalicílico 500mg',
+      dosage: '500mg',
+      instructions: 'Tomar 01 (um) comprimido de 8 em 8 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+    {
+      id: 'mefenamico',
+      name: 'Ácido Mefenâmico 500mg',
+      dosage: '500mg',
+      instructions: 'Tomar 01 (um) comprimido de 8 em 8 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+    {
+      id: 'ibuprofeno',
+      name: 'Ibuprofeno 600mg',
+      dosage: '600mg',
+      instructions: 'Tomar 01 (um) comprimido de 8 em 8 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+    {
+      id: 'diclofenaco',
+      name: 'Diclofenaco Potássico 50mg',
+      dosage: '50mg',
+      instructions: 'Tomar 01 (um) comprimido de 8 em 8 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+    {
+      id: 'naproxeno',
+      name: 'Naproxeno 550mg',
+      dosage: '550mg',
+      instructions: 'Tomar 01 (um) comprimido de 12 em 12 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos e Antitérmicos'
+    },
+
+    // ANALGÉSICOS OPIÓIDES
+    {
+      id: 'codeina',
+      name: 'Paracetamol 500mg + Fosfato de Codeína 30mg',
+      dosage: '500mg + 30mg',
+      instructions: 'Tomar 01 (um) comprimido de 6 em 6 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos Opióides'
+    },
+    {
+      id: 'tramadol',
+      name: 'Cloridrato de Tramadol 50mg',
+      dosage: '50mg',
+      instructions: 'Tomar 01 (um) comprimido de 8 em 8 horas por 3 dias.',
+      quantity: '01 CX',
+      category: 'Analgésicos Opióides'
+    },
+
+    // ANTIBIÓTICOS
     {
       id: 'amoxicillin',
       name: 'Amoxicilina 500mg',
       dosage: '500mg',
-      instructions: 'Tomar 01 (um) cápsula de 8 em 8 horas por 5 dias.',
-      quantity: '01 CX'
+      instructions: 'Tomar 01 (um) cápsula de 8 em 8 horas por 7 dias.',
+      quantity: '01 CX',
+      category: 'Antibióticos'
     },
     {
-      id: 'nimesulide',
-      name: 'Nimesulida 100mg',
-      dosage: '100mg',
-      instructions: 'Tomar 01 (um) comprimido de 12 em 12 horas por 3 dias.',
-      quantity: '01 CX'
+      id: 'clavulin',
+      name: 'Amoxicilina 500mg + Ácido Clavulânico 125mg',
+      dosage: '500mg + 125mg',
+      instructions: 'Tomar 01 (um) comprimido de 8 em 8 horas por 7 dias.',
+      quantity: '01 CX',
+      category: 'Antibióticos'
     },
     {
-      id: 'dipyrone',
-      name: 'Dipirona Monohidratada 500mg',
+      id: 'cefalexina',
+      name: 'Cefalexina 500mg',
       dosage: '500mg',
-      instructions: 'Tomar 01 (um) comprimido de 6 em 6 horas por 3 dias.',
-      quantity: '01 CX'
+      instructions: 'Tomar 01 (um) cápsula de 6 em 6 horas por 7 dias.',
+      quantity: '01 CX',
+      category: 'Antibióticos'
     },
+    {
+      id: 'clindamicina',
+      name: 'Clindamicina 300mg',
+      dosage: '300mg',
+      instructions: 'Tomar 01 (um) cápsula de 6 em 6 horas por 7 dias.',
+      quantity: '01 CX',
+      category: 'Antibióticos'
+    },
+    {
+      id: 'azitromicina',
+      name: 'Azitromicina 500mg',
+      dosage: '500mg',
+      instructions: 'Tomar 01 (um) comprimido ao dia por 3 dias.',
+      quantity: '01 CX',
+      category: 'Antibióticos'
+    },
+    {
+      id: 'metronidazol',
+      name: 'Metronidazol 400mg',
+      dosage: '400mg',
+      instructions: 'Tomar 01 (um) comprimido de 8 em 8 horas por 7 dias.',
+      quantity: '01 CX',
+      category: 'Antibióticos'
+    },
+
+    // ANTIVIRAIS
+    {
+      id: 'aciclovir',
+      name: 'Aciclovir 200mg',
+      dosage: '200mg',
+      instructions: 'Tomar 01 (um) comprimido de 4 em 4 horas por 5 dias.',
+      quantity: '01 CX',
+      category: 'Antivirais'
+    },
+    {
+      id: 'valaciclovir',
+      name: 'Valaciclovir 500mg',
+      dosage: '500mg',
+      instructions: 'Tomar 01 (um) comprimido de 12 em 12 horas por 5 dias.',
+      quantity: '01 CX',
+      category: 'Antivirais'
+    },
+
+    // ANTIFÚNGICOS
+    {
+      id: 'nistatina',
+      name: 'Nistatina 100.000UI/mL',
+      dosage: '100.000UI/mL',
+      instructions: 'Aplicar 1mL na cavidade oral, 4 vezes ao dia por 7 dias.',
+      quantity: '01 FR',
+      category: 'Antifúngicos'
+    },
+    {
+      id: 'fluconazol',
+      name: 'Fluconazol 150mg',
+      dosage: '150mg',
+      instructions: 'Tomar 01 (um) comprimido, dose única.',
+      quantity: '01 CP',
+      category: 'Antifúngicos'
+    },
+
+    // ANTI-INFLAMATÓRIOS ESTEROIDAIS
+    {
+      id: 'prednisona',
+      name: 'Prednisona 20mg',
+      dosage: '20mg',
+      instructions: 'Tomar 01 (um) comprimido ao dia por 5 dias.',
+      quantity: '01 CX',
+      category: 'Anti-inflamatórios Esteroidais'
+    },
+    {
+      id: 'dexametasona',
+      name: 'Dexametasona 0,1mg/mL (elixir)',
+      dosage: '0,1mg/mL',
+      instructions: 'Fazer bochecho com 10mL, 3 vezes ao dia por 3 dias.',
+      quantity: '01 FR',
+      category: 'Anti-inflamatórios Esteroidais'
+    },
+
+    // ANTISSÉPTICOS BUCAIS
     {
       id: 'chlorhexidine',
       name: 'Digluconato de Clorexidina 0,12%',
       dosage: '0,12%',
       instructions: 'Fazer bochecho leve, durante 01 (um) minuto, duas vezes ao dia, por 5 dias.',
-      quantity: '01 FR'
+      quantity: '01 FR',
+      category: 'Antissépticos Bucais'
+    },
+    {
+      id: 'pvpi',
+      name: 'PVPI Iodopovidona 10mg/mL',
+      dosage: '10mg/mL',
+      instructions: 'Aplicar com cotonete na região afetada, 2 vezes ao dia por 5 dias.',
+      quantity: '01 FR',
+      category: 'Antissépticos Bucais'
+    },
+
+    // BENZODIAZEPÍNICOS
+    {
+      id: 'diazepam',
+      name: 'Diazepam 10mg',
+      dosage: '10mg',
+      instructions: 'Tomar 01 (um) comprimido 1 hora antes do procedimento.',
+      quantity: '02 CP',
+      category: 'Benzodiazepínicos'
+    },
+    {
+      id: 'alprazolam',
+      name: 'Alprazolam 0,5mg',
+      dosage: '0,5mg',
+      instructions: 'Tomar 01 (um) comprimido 1 hora antes do procedimento.',
+      quantity: '02 CP',
+      category: 'Benzodiazepínicos'
     }
   ];
+
+  const categories = Array.from(new Set(medications.map(med => med.category)));
 
   const handleMedicationToggle = (medicationId: string) => {
     setSelectedMedications(prev => 
@@ -89,8 +287,14 @@ const PrescriptionPage = () => {
     return medications.filter(med => selectedMedications.includes(med.id));
   };
 
-  const getCurrentDate = () => {
-    return new Date().toLocaleDateString('pt-BR');
+  const groupMedicationsByCategory = (medicationsData: MedicationOption[]) => {
+    return medicationsData.reduce((acc, med) => {
+      if (!acc[med.category]) {
+        acc[med.category] = [];
+      }
+      acc[med.category].push(med);
+      return acc;
+    }, {} as Record<string, MedicationOption[]>);
   };
 
   return (
@@ -123,47 +327,35 @@ const PrescriptionPage = () => {
               </div>
 
               <div className="space-y-4">
-                <Label className="text-lg font-medium">Selecione os Medicamentos:</Label>
+                <Label className="text-lg font-medium">Selecione os Medicamentos por Categoria:</Label>
                 
-                <div className="space-y-3">
-                  <h4 className="font-medium text-gray-700">Uso Interno (oral)</h4>
-                  {medications.slice(0, 3).map((medication) => (
-                    <div key={medication.id} className="flex items-start space-x-3 p-3 border rounded-lg">
-                      <Checkbox
-                        id={medication.id}
-                        checked={selectedMedications.includes(medication.id)}
-                        onCheckedChange={() => handleMedicationToggle(medication.id)}
-                      />
-                      <div className="flex-1">
-                        <Label htmlFor={medication.id} className="font-medium cursor-pointer">
-                          {medication.name}
-                        </Label>
-                        <p className="text-sm text-gray-600 mt-1">{medication.instructions}</p>
-                        <p className="text-sm text-gray-500">Quantidade: {medication.quantity}</p>
-                      </div>
+                {categories.map((category) => (
+                  <div key={category} className="space-y-3">
+                    <h4 className="font-medium text-gray-700 text-sm bg-gray-100 p-2 rounded">
+                      {category}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {medications
+                        .filter(med => med.category === category)
+                        .map((medication) => (
+                          <div key={medication.id} className="flex items-start space-x-3 p-3 border rounded-lg">
+                            <Checkbox
+                              id={medication.id}
+                              checked={selectedMedications.includes(medication.id)}
+                              onCheckedChange={() => handleMedicationToggle(medication.id)}
+                            />
+                            <div className="flex-1">
+                              <Label htmlFor={medication.id} className="font-medium cursor-pointer text-sm">
+                                {medication.name}
+                              </Label>
+                              <p className="text-xs text-gray-600 mt-1">{medication.instructions}</p>
+                              <p className="text-xs text-gray-500">Quantidade: {medication.quantity}</p>
+                            </div>
+                          </div>
+                        ))}
                     </div>
-                  ))}
-                </div>
-
-                <div className="space-y-3">
-                  <h4 className="font-medium text-gray-700">Uso Externo</h4>
-                  {medications.slice(3).map((medication) => (
-                    <div key={medication.id} className="flex items-start space-x-3 p-3 border rounded-lg">
-                      <Checkbox
-                        id={medication.id}
-                        checked={selectedMedications.includes(medication.id)}
-                        onCheckedChange={() => handleMedicationToggle(medication.id)}
-                      />
-                      <div className="flex-1">
-                        <Label htmlFor={medication.id} className="font-medium cursor-pointer">
-                          {medication.name}
-                        </Label>
-                        <p className="text-sm text-gray-600 mt-1">{medication.instructions}</p>
-                        <p className="text-sm text-gray-500">Quantidade: {medication.quantity}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
 
               <Button 
@@ -198,41 +390,23 @@ const PrescriptionPage = () => {
                   </p>
                 </div>
 
-                {/* Internal Use Medications */}
-                {getSelectedMedicationsData().some(med => med.id !== 'chlorhexidine') && (
-                  <div className="mb-6">
-                    <h3 className="text-center font-bold underline mb-4">Uso Interno (oral)</h3>
-                    {getSelectedMedicationsData()
-                      .filter(med => med.id !== 'chlorhexidine')
-                      .map((medication, index) => (
-                        <div key={medication.id} className="mb-3">
-                          <p className="mb-1">
-                            <strong>{index + 1})</strong> <strong>{medication.name}</strong> 
-                            <span className="float-right">{medication.quantity}</span>
-                          </p>
-                          <p className="ml-6 text-sm">{medication.instructions}</p>
-                        </div>
-                      ))}
+                {/* Medications by Category */}
+                {Object.entries(groupMedicationsByCategory(getSelectedMedicationsData())).map(([category, meds]) => (
+                  <div key={category} className="mb-6">
+                    <h3 className="text-center font-bold underline mb-4">
+                      {category === 'Antissépticos Bucais' ? 'USO EXTERNO' : 'Uso Interno (oral)'}
+                    </h3>
+                    {meds.map((medication, index) => (
+                      <div key={medication.id} className="mb-3">
+                        <p className="mb-1">
+                          <strong>{index + 1})</strong> <strong>{medication.name}</strong> 
+                          <span className="float-right">{medication.quantity}</span>
+                        </p>
+                        <p className="ml-6 text-sm">{medication.instructions}</p>
+                      </div>
+                    ))}
                   </div>
-                )}
-
-                {/* External Use Medications */}
-                {selectedMedications.includes('chlorhexidine') && (
-                  <div className="mb-6">
-                    <h3 className="text-center font-bold underline mb-4">USO EXTERNO</h3>
-                    {getSelectedMedicationsData()
-                      .filter(med => med.id === 'chlorhexidine')
-                      .map((medication, index) => (
-                        <div key={medication.id} className="mb-3">
-                          <p className="mb-1">
-                            <strong>{index + 1})</strong> <strong>{medication.name}</strong>
-                            <span className="float-right">{medication.quantity}</span>
-                          </p>
-                          <p className="ml-6 text-sm">{medication.instructions}</p>
-                        </div>
-                      ))}
-                  </div>
-                )}
+                ))}
 
                 {/* Date and Location */}
                 <div className="mt-8 text-right">
