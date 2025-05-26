@@ -1,14 +1,11 @@
-
 import React, { useState } from 'react';
-import { ArrowLeft, FileText, Download } from 'lucide-react';
+import { ArrowLeft, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
+import MedicationSelector from '@/components/prescription/MedicationSelector';
+import PrescriptionDisplay from '@/components/prescription/PrescriptionDisplay';
+import PrescriptionForm from '@/components/prescription/PrescriptionForm';
 
 interface MedicationOption {
   id: string;
@@ -251,8 +248,6 @@ const PrescriptionPage = () => {
     }
   ];
 
-  const categories = Array.from(new Set(medications.map(med => med.category)));
-
   const handleMedicationToggle = (medicationId: string) => {
     setSelectedMedications(prev => 
       prev.includes(medicationId) 
@@ -287,16 +282,6 @@ const PrescriptionPage = () => {
     return medications.filter(med => selectedMedications.includes(med.id));
   };
 
-  const groupMedicationsByCategory = (medicationsData: MedicationOption[]) => {
-    return medicationsData.reduce((acc, med) => {
-      if (!acc[med.category]) {
-        acc[med.category] = [];
-      }
-      acc[med.category].push(med);
-      return acc;
-    }, {} as Record<string, MedicationOption[]>);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2c7d7b] to-[#e6f7f5] flex flex-col">
       <header className="bg-[#2c7d7b] text-white p-4 flex items-center">
@@ -316,55 +301,17 @@ const PrescriptionPage = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="patientName">Nome do Paciente</Label>
-                <Input 
-                  id="patientName"
-                  value={patientName}
-                  onChange={(e) => setPatientName(e.target.value)}
-                  placeholder="Digite o nome completo do paciente"
-                />
-              </div>
+              <PrescriptionForm
+                patientName={patientName}
+                onPatientNameChange={setPatientName}
+                onGenerate={generatePrescription}
+              />
 
-              <div className="space-y-4">
-                <Label className="text-lg font-medium">Selecione os Medicamentos por Categoria:</Label>
-                
-                {categories.map((category) => (
-                  <div key={category} className="space-y-3">
-                    <h4 className="font-medium text-gray-700 text-sm bg-gray-100 p-2 rounded">
-                      {category}
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {medications
-                        .filter(med => med.category === category)
-                        .map((medication) => (
-                          <div key={medication.id} className="flex items-start space-x-3 p-3 border rounded-lg">
-                            <Checkbox
-                              id={medication.id}
-                              checked={selectedMedications.includes(medication.id)}
-                              onCheckedChange={() => handleMedicationToggle(medication.id)}
-                            />
-                            <div className="flex-1">
-                              <Label htmlFor={medication.id} className="font-medium cursor-pointer text-sm">
-                                {medication.name}
-                              </Label>
-                              <p className="text-xs text-gray-600 mt-1">{medication.instructions}</p>
-                              <p className="text-xs text-gray-500">Quantidade: {medication.quantity}</p>
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <Button 
-                onClick={generatePrescription}
-                className="w-full mt-6 bg-[#2c7d7b] hover:bg-[#1e5655]"
-              >
-                <FileText className="mr-2 h-4 w-4" />
-                Gerar Receita
-              </Button>
+              <MedicationSelector
+                medications={medications}
+                selectedMedications={selectedMedications}
+                onMedicationToggle={handleMedicationToggle}
+              />
             </CardContent>
           </Card>
         ) : (
@@ -373,71 +320,11 @@ const PrescriptionPage = () => {
               <CardTitle className="text-xl">Receita Gerada</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="prescription-content bg-white p-8 border border-gray-300" style={{ fontFamily: 'serif' }}>
-                {/* Header */}
-                <div className="text-center mb-8">
-                  <h2 className="text-xl font-bold text-gray-600 mb-2">Arthur Valente</h2>
-                  <p className="text-sm text-gray-500">IMPLANTODONTIA & CIRURGIA ORAL</p>
-                </div>
-
-                {/* Patient Name */}
-                <div className="mb-6">
-                  <p className="text-lg">
-                    <strong>PARA:</strong> 
-                    <span className="border-b border-gray-400 ml-2 inline-block w-80">
-                      {patientName}
-                    </span>
-                  </p>
-                </div>
-
-                {/* Medications by Category */}
-                {Object.entries(groupMedicationsByCategory(getSelectedMedicationsData())).map(([category, meds]) => (
-                  <div key={category} className="mb-6">
-                    <h3 className="text-center font-bold underline mb-4">
-                      {category === 'Antissépticos Bucais' ? 'USO EXTERNO' : 'Uso Interno (oral)'}
-                    </h3>
-                    {meds.map((medication, index) => (
-                      <div key={medication.id} className="mb-3">
-                        <p className="mb-1">
-                          <strong>{index + 1})</strong> <strong>{medication.name}</strong> 
-                          <span className="float-right">{medication.quantity}</span>
-                        </p>
-                        <p className="ml-6 text-sm">{medication.instructions}</p>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-
-                {/* Date and Location */}
-                <div className="mt-8 text-right">
-                  <p>Rio, ___ de ________ de 22.</p>
-                </div>
-
-                {/* Footer */}
-                <div className="mt-12 text-center border-t pt-4">
-                  <p className="font-bold">Walter Arthur Silva Valente – CRO 39.461</p>
-                  <p>Cirurgia e Traumatologia Bucomaxilofacial</p>
-                  <p>Doutor em Odontologia</p>
-                  <p>Hipnose Clínica</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 mt-6">
-                <Button 
-                  onClick={() => setShowPrescription(false)}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  Editar
-                </Button>
-                <Button 
-                  onClick={() => window.print()}
-                  className="flex-1 bg-[#2c7d7b] hover:bg-[#1e5655]"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Imprimir
-                </Button>
-              </div>
+              <PrescriptionDisplay
+                patientName={patientName}
+                selectedMedicationsData={getSelectedMedicationsData()}
+                onEdit={() => setShowPrescription(false)}
+              />
             </CardContent>
           </Card>
         )}
